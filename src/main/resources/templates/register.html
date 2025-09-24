@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gym Registration</title>
+    <style>
+        /* Reset some basic styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            max-width: 400px;
+            width: 100%;
+            padding: 2rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #444;
+        }
+
+        input, select {
+            padding: 10px 12px;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            border: 1.5px solid #ddd;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #74ebd5;
+            outline: none;
+            box-shadow: 0 0 5px #74ebd5;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: white;
+        }
+
+        button.submit {
+            background-color: #28a745;
+        }
+
+        button.submit:hover {
+            background-color: #218838;
+        }
+
+        button.reset {
+            background-color: #dc3545;
+        }
+
+        button.reset:hover {
+            background-color: #c82333;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Gym Membership Registration</h2>
+    <form th:action="@{/register}" th:object="${user}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+
+        <label for="username">Username *</label>
+        <input type="text" id="username" th:field="*{username}" placeholder="Choose a username" required minlength="4" maxlength="20" />
+
+        <label for="fullname">Full Name *</label>
+        <input type="text" id="fullname" th:field="*{fullname}" placeholder="John Doe" required />
+
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="john@example.com" required />
+
+        <label for="password">Password *</label>
+        <input type="password" id="password" th:field="*{password}" placeholder="••••••••" required minlength="6" />
+
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" th:field="*{phone}" placeholder="+1 234 567 8901" pattern="^\+?\d{10,15}$" required />
+
+        <label for="age">Age *</label>
+        <input type="number" id="age" th:field="*{age}" min="10" max="100" placeholder="25" required />
+
+        <label for="gender">Gender *</label>
+        <select id="gender" th:field="*{gender}" required>
+            <option value="" disabled>Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <div class="buttons">
+            <button type="submit" class="submit">Register</button>
+            <button type="reset" class="reset">Reset</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
